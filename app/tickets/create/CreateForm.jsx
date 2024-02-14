@@ -11,18 +11,18 @@ export default function CreateForm() {
   const [priority, setPriority] = useState('low');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // prevent user from clicking the button after submitting
     setIsLoading(true);
 
-    const newTicket = { title, body, priority, user_email: 'mario@netninja.dev' }
+    const newTicket = { title, body, priority, user_email: 'mario@netninja.dev' };
 
     const res = await fetch('http://localhost:4000/tickets', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newTicket)
-    })
+    });
 
     if (res.status === 201) {
       router.refresh();
@@ -43,7 +43,7 @@ export default function CreateForm() {
         />
       </label>
       <label>
-        <span>Title:</span>
+        <span>Body:</span>
         <textarea
           required
           onChange={(e) => setBody(e.target.value)}
@@ -69,5 +69,5 @@ export default function CreateForm() {
         {!isLoading && <span>Add Ticket</span>}
       </button>
     </form>
-  )
+  );
 }
