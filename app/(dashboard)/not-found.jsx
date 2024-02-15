@@ -7,6 +7,6 @@ export default function NotFound() {
       <p>This page does not exist</p>
       <p>Go back to the <Link href="/">Dashboard</Link></p>
     </main>
-  )
+  );
 }
 

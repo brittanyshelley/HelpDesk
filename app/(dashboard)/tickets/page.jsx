@@ -19,5 +19,5 @@ export default function Tickets() {
         <TicketList />
       </Suspense>
     </main>
-  )
+  );
 }
