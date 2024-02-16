@@ -19,9 +19,9 @@ export async function POST(request) {
     method: 'POST',
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(ticket)
-  })
+  });
 
-  const newTicket = await res.json()
+  const newTicket = await res.json();
 
   return NextResponse.json(newTicket, {
     status: 201
