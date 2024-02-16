@@ -7,6 +7,6 @@ export default function NotFound() {
       <p>We could not find the ticket you were looking for.</p>
       <p>Go back to all <Link href="/tickets">tickets</Link>.</p>
     </main>
-  )
+  );
 }
 
