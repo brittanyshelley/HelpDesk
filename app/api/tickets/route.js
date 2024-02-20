@@ -1,29 +1,57 @@
-import { NextResponse } from "next/server";
+// import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+// import { NextResponse } from "next/server";
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
-export async function GET() {
-  const res = await fetch('http://localhost:4000/tickets');
+// export async function POST(request) {
+//   const ticket = await request.json();
 
-  const tickets = await res.json();
+//   //get supabase instance
+//   const supabase = createRouteHandlerClient();
 
-  return NextResponse.json(tickets, {
-    status: 200
-  });
-}
+//   // get current user session
+//   const { data: { session } } = await supabase.auth.getSession();
+
+//   // insert the data
+//   const { data, error } = await supabase
+//   .from('tickets')
+//   .insert({
+//     ...ticket,
+//     user_email: session.user.email
+//   })
+//     .select()
+//     .single()
+
+//   return NextResponse.json({ data, error });
+// }
+
+import { NextResponse } from "next/server"
+import { cookies } from 'next/headers'
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 
 export async function POST(request) {
-  const ticket = await request.json();
+  const ticket = await request.json()
 
-  const res = await fetch('http://localhost:4000/tickets', {
-    method: 'POST',
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(ticket)
+  // get supabase instance
+  const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+
+
+  // get current user session
+  const { data: { session } } = await supabase.auth.getSession()
+
+  // insert the data
+
+  const { data, error } = await supabase.from('tickets').insert({
+    ...ticket,
+    user_email: session.user.email,
   });
+  // const { data, error } = await supabase.from('tickets')
+  //   .insert({
+  //     ...ticket,
+  //     user_email: session.user.email,
+  //   })
+  //   .select()
+  //   .single()
 
-  const newTicket = await res.json();
-
-  return NextResponse.json(newTicket, {
-    status: 201
-  });
+  return NextResponse.json({ data, error })
 }
